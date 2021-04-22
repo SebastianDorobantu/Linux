@@ -13,10 +13,9 @@ fi
 #VARIABLES
 html=/var/www/html
 confu=/etc/apache2/apache2.conf
+confc=/etc/httpd/conf/httpd.conf
 os=$(cat /etc/*release |grep 'ubuntu')
-#os=''
 arh=/var/Seb
-
 
 #Read input
 function input (){
@@ -45,6 +44,22 @@ function ubuntustop(){
 
 }
 
+
+#Start on centos
+function ubuntustart(){
+	mkdir $arh
+	cp $confc $arh 2>/dev/null
+	rm $confc 2>/dev/null
+	sudo apt-get -y -qq install wget 
+	wget -nc -P /etc/httpd/conf/ 'https://github.com/SebastianDorobantu/Linux/blob/master/httpd.conf'
+	mv /var/www/html/* $arh 2>/dev/null
+}
+
+
+
+
+
+
 #EXECUTION
 
 #Get input
@@ -62,4 +77,6 @@ if [[ $os != '' ]]; then
 	else
 		ubuntustop
 	fi
+else 
+	echo $os
 fi
