@@ -16,10 +16,11 @@ confu=/etc/apache2/apache2.conf
 confc=/etc/httpd/conf/httpd.conf
 os=$(cat /etc/*release |grep 'ubuntu')
 arh=/var/Seb
-Updatevar="\e\n \e[1m\e[31mSTARTING \e[1mSYSTEM \e[1mUPDATE\e[0m \e\n" 
+Updatevar="\e\n \e[1m\e[31mSTARTING \e[1mSYSTEM \e[1mUPDATE\e[0m \e\n"
 Envar="\e\n \e[31m\e[1mINITIALIZING \e[1mENVIROMENT\e[0m \e\n"
 Compvar="\e\n \e[31m\e[1mENVIROMENT \e[1mINITIALIZED\e[0m \e\n"
 Restvar="\e\n \e[31m\e[1mENVIROMENT \e[1mRESTORE\e[0m \e\n"
+Apache="\e\n \e[31mCHECKING AND INSTALLING APACHE RESTORE\e[0m \e\n"
 
 #Read input
 function input (){
@@ -32,7 +33,12 @@ read stage
 function ubuntustart(){
 	echo -e $Updatevar
 	sudo apt-get -y update;sudo apt-get -y upgrade
-	sudo apt-get -y -qq install wget 
+	sudo apt-get -y -qq install wget
+    echo -e $Apache
+    sudo apt-get -y install apache2
+    systemctl start apache2
+    systemctl enable apache2
+
 	echo -e $Envar
 	mkdir $arh
 	cp $confu $arh 2>/dev/null
@@ -58,6 +64,11 @@ function centosstart(){
 	echo -e $Updatevar
 	sudo yum -y update;sudo yum -y upgrade
 	sudo yum -q -y nstall wget
+    echo -e $Apache
+    yum -y install httpd
+    systemctl start httpd
+    systemctl enable httpd
+
 	echo -e $Envar
 	mkdir $arh
 	cp $confc $arh 2>/dev/null
@@ -92,14 +103,14 @@ done
 #Function redirection
 if [[ $os != '' ]]; then
 	if [[ $stage -eq '1' ]]
-	then 
+	then
 		ubuntustart
 	else
 		ubuntustop
 	fi
-else 
+else
 	if [[ $stage -eq '1' ]]
-	then 
+	then
 		centosstart
 	else
 		centosstop
