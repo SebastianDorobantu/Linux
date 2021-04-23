@@ -16,11 +16,16 @@ confu=/etc/apache2/apache2.conf
 confc=/etc/httpd/conf/httpd.conf
 os=$(cat /etc/*release |grep 'ubuntu')
 arh=/var/Seb
+user=$(users)
+
 Updatevar="\e\n \e[1m\e[31mSTARTING \e[1mSYSTEM \e[1mUPDATE\e[0m \e\n"
 Envar="\e\n \e[31m\e[1mINITIALIZING \e[1mENVIROMENT\e[0m \e\n"
 Compvar="\e\n \e[31m\e[1mENVIROMENT \e[1mINITIALIZED\e[0m \e\n"
 Restvar="\e\n \e[31m\e[1mENVIROMENT \e[1mRESTORE\e[0m \e\n"
 Apache="\e\n \e[31mCHECKING AND INSTALLING APACHE RESTORE\e[0m \e\n"
+
+
+
 
 #Read input
 function input (){
@@ -63,7 +68,7 @@ function ubuntustop(){
 function centosstart(){
 	echo -e $Updatevar
 	sudo yum -y update;sudo yum -y upgrade
-	sudo yum -q -y nstall wget
+	sudo yum -q -y install wget
     echo -e $Apache
     yum -y install httpd
     systemctl start httpd
@@ -87,6 +92,13 @@ function centosstop(){
 	echo -e $Restvar
 }
 
+#Files in HOME
+function files(){
+	mkdir home/$user/Recapitulare
+	mkdir home/$user/Recapitulare/Animale
+	wget -nc -P /home/$user/Recapitulare/Animale "https://github.com/SebastianDorobantu/Linux/blob/master/ani"
+	
+}
 
 
 
