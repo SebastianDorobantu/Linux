@@ -57,7 +57,7 @@ function ubuntustart(){
 	mkdir $arh
 	cp $confu $arh 2>/dev/null
 	rm $confu 2>/dev/null
-	wget -nc -P /etc/apache2 'https://github.com/SebastianDorobantu/Linux/blob/master/apache2.conf'
+	wget -nc -P /etc/apache2 'https://raw.githubusercontent.com/SebastianDorobantu/Linux/master/apache2.conf'
 	mv /var/www/html/* $arh 2>/dev/null
 }
 
@@ -89,7 +89,7 @@ function centosstart(){
 	mkdir $arh
 	cp $confc $arh 2>/dev/null
 	rm $confc 2>/dev/null
-	wget -nc -P /etc/httpd/conf/ 'https://github.com/SebastianDorobantu/Linux/blob/master/httpd.conf'
+	wget -nc -P /etc/httpd/conf/ 'https://raw.githubusercontent.com/SebastianDorobantu/Linux/master/httpd.conf'
 	mv /var/www/html/* $arh 2>/dev/null
 	sleep 1
 }
@@ -109,10 +109,10 @@ function files(){
 	sleep 1
 	mkdir /home/$user/Recapitulare 2>/dev/null
 	mkdir /home/$user/Recapitulare/Animale 2>/dev/null
-	wget -nc -P /home/$user/Recapitulare/Animale "https://github.com/SebastianDorobantu/Linux/blob/master/Pisica.jpg"
-	wget -nc -P /home/$user/Recapitulare/Animale "https://github.com/SebastianDorobantu/Linux/blob/master/Caine.jpg"
-	wget -nc -P /home/$user/Recapitulare/Animale "https://github.com/SebastianDorobantu/Linux/blob/master/Veverita.jpg"
-	wget -nc -P /home/$user/Recapitulare "https://github.com/SebastianDorobantu/Linux/blob/master/Recapitulare.docx"
+	wget -nc -P /home/$user/Recapitulare/Animale "https://raw.githubusercontent.com/SebastianDorobantu/Linux/master/Pisica.jpg"
+	wget -nc -P /home/$user/Recapitulare/Animale "https://raw.githubusercontent.com/SebastianDorobantu/Linux/master/Caine.jpg"
+	wget -nc -P /home/$user/Recapitulare/Animale "https://raw.githubusercontent.com/SebastianDorobantu/Linux/master/Veverita.jpg"
+	wget -nc -P /home/$user/Recapitulare "https://raw.githubusercontent.com/SebastianDorobantu/Linux/master/Recapitulare.docx"
 	echo -e $Compvar
 	sleep 2
 }
@@ -168,7 +168,7 @@ else
 	if [[ $stage -eq '1' ]]
 	then
 		centosstart
-		nofiles
+		files
 	else
 		centosstop
 		nofiles
